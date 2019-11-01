@@ -1,101 +1,112 @@
-<div id="app">
-	<TEXTAREA id="to_convert" placeholder="შეიყვანე ინგლისური ტექსტი"></TEXTAREA>
-	<TEXTAREA id="converted"  placeholder="აქ დაიბეჭდება ქარუთლი ტექსტი"></TEXTAREA>
-</div>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Convert ENG - KA </title>
+</head>
+<body>
+	
+	<div id="app">
+		<TEXTAREA id="to_convert" placeholder="შეიყვანე ინგლისური ტექსტი"></TEXTAREA>
+		<TEXTAREA id="converted"  placeholder="აქ დაიბეჭდება ქარუთლი ტექსტი"></TEXTAREA>
+	</div>
+	
+		<style>	
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#app{
+				display: flex;
+			}
+			textarea {
+				height: 100vh;
+				width: 50vw;
+			}
+			button#btn {
+				align-self: flex-start;
+			}
+		</style>
+	
+	
+	<script type="text/javascript">
 
-	<style>	
-		*{
-			margin: 0;
-			padding: 0;
-		}
-		#app{
-			display: flex;
-		}
-		textarea {
-		    height: 100vh;
-		    width: 50vw;
-		}
-		button#btn {
-		    align-self: flex-start;
-		}
-	</style>
-
-
-<script type="text/javascript">
-var toconvert = document.querySelector('#to_convert');
-var converted = document.querySelector('#converted');
-var dictionary = {
- 97  : "ა",      
- 98  : "ბ",      
- 103 : "გ",      
- 100 : "დ",      
- 101 : "ე",      
- 118 : "ვ",      
- 122 : "ზ",      
- 84  : "თ",      
- 105 : "ი",      
- 107 : "კ",      
- 108 : "ლ",      
- 109 : "მ",      
- 110 : "ნ",      
- 111 : "ო",      
- 112 : "პ",      
- 74  : "ჟ",      
- 114 : "რ",      
- 115 : "ს",      
- 116 : "ტ",      
- 117 : "უ",      
- 102 : "ფ",      
- 113 : "ქ",      
- 82  : "ღ",      
- 121 : "ყ",      
- 83  : "შ",      
- 67  : "ჩ",      
- 99  : "ც",      
- 90  : "ძ",      
- 119 : "წ",      
- 87  : "ჭ",      
- 120 : "ხ",      
- 106 : "ჯ",      
- 104 : "ჰ",
- 96: "\"",
- 126: "\"",
-}
-
-
-function translate ( dict, word ) {
-	return dict[word];
-}
-
-function update () {
-	var toconvert = document.querySelector('#to_convert');
-	var converted = document.querySelector('#converted');
-
-
-		console.log( 'converted value',toconvert.value );
-
-	var arr = toconvert.value.split( "" ); 
- 		console.log( arr );
-	var toreturn = "";
-	var arrey = [];
-
-	console.log( "toreturn:",toreturn );
-
-	for( var i = 0; i < arr.length; i++ ){
-		arrey.push( (arr[i]).charCodeAt(0) );
-		var trans = translate( dictionary,(arr[i]).charCodeAt(0) );
-		toreturn+= trans == undefined ? arr[i] : trans ;
+	var dictionary = {
+	 97  : "ა",      
+	 98  : "ბ",      
+	 103 : "გ",      
+	 100 : "დ",      
+	 101 : "ე",      
+	 118 : "ვ",      
+	 122 : "ზ",      
+	 84  : "თ",      
+	 105 : "ი",      
+	 107 : "კ",      
+	 108 : "ლ",      
+	 109 : "მ",      
+	 110 : "ნ",      
+	 111 : "ო",      
+	 112 : "პ",      
+	 74  : "ჟ",      
+	 114 : "რ",      
+	 115 : "ს",      
+	 116 : "ტ",      
+	 117 : "უ",      
+	 102 : "ფ",      
+	 113 : "ქ",      
+	 82  : "ღ",      
+	 121 : "ყ",      
+	 83  : "შ",      
+	 67  : "ჩ",      
+	 99  : "ც",      
+	 90  : "ძ",      
+	 119 : "წ",      
+	 87  : "ჭ",      
+	 120 : "ხ",      
+	 106 : "ჯ",      
+	 104 : "ჰ",
+	 96: "\"",
+	 126: "\"",
 	}
-
-	converted.innerHTML = toreturn;
-	console.log(arrey);
-}
-
-
-
-
-toconvert.addEventListener("keyup", update);
-toconvert.addEventListener("change", update);
-
-</script>
+	
+	function translate ( dict, word ) {
+		return dict[word];
+	}
+	function getString() {
+		return {
+			toconvert: document.querySelector('#to_convert'), 
+			converted: document.querySelector('#converted')
+			}
+	}
+	function stringToArray(toconvert){
+		return toconvert.value.split( "" );
+	}
+	function convert(arr, dictionary) {
+		var toreturn = "";
+		var arrey = [];
+		for( var i = 0; i < arr.length; i++ ){
+			let charCode = (arr[i]).charCodeAt(0);
+			arrey.push( charCode );
+			var trans = translate( dictionary, charCode);
+			toreturn += trans == undefined ? arr[i] : trans ;
+		}
+		return toreturn;
+	}
+	function changeHTML(converted,value) {
+		converted.innerHTML = value;
+	}
+	function update () {
+		let strObj = getString(); // toconvert, converted elements
+		let strArr = stringToArray(strObj.toconvert);
+		let convertedValue = convert(strArr, dictionary);
+		changeHTML(strObj.converted, convertedValue);
+	}
+	
+	document.querySelector('#to_convert').addEventListener("keyup", update);
+	document.querySelector('#to_convert').addEventListener("change", update);
+	
+	</script>
+</body>
+</html>
 
