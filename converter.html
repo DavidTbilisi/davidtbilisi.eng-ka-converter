@@ -3,13 +3,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Convert ENG - KA </title>
+	<title>Convert KA - ENG</title>
 </head>
 <body>
 	
 	<div id="app">
-		<TEXTAREA id="to_convert" placeholder="შეიყვანე ინგლისური ტექსტი"></TEXTAREA>
-		<TEXTAREA id="converted"  placeholder="აქ დაიბეჭდება ქარუთლი ტექსტი"></TEXTAREA>
+		<TEXTAREA id="to_convert" placeholder="შეიყვანე ქარუთლი ტექსტი"></TEXTAREA>
+		<TEXTAREA id="converted"  placeholder="აქ დაიბეჭდება ინგლისური ტექსტი"></TEXTAREA>
 	</div>
 	
 		<style>	
@@ -69,7 +69,80 @@
 	 96: "\"",
 	 126: "\"",
 	}
-	
+	var ka={
+
+
+
+4304: "a",
+
+4305: "b",
+
+4306: "g",
+
+4307: "d",
+
+4308: "e",
+
+4309: "v",
+
+4310: "z",
+
+4311: "T",
+
+4312: "i",
+
+4313: "k",
+
+4314: "l",
+
+4315: "m",
+
+4316: "n",
+
+4317: "o",
+
+4318: "p",
+
+4319: "J",
+
+4320: "r",
+
+4321: "s",
+
+4322: "t",
+
+4323: "u",
+
+4324: "f",
+
+4325: "q",
+
+4326: "R",
+
+4327: "y",
+
+4328: "S",
+
+4329: "C",
+
+4330: "c",
+
+4331: "Z",
+
+4332: "w",
+
+4333: "W",
+
+4334: "x",
+
+4335: "j",
+
+4336: "h",
+
+
+
+};
+
 	function translate ( dict, word ) {
 		return dict[word];
 	}
@@ -87,6 +160,7 @@
 		var arrey = [];
 		for( var i = 0; i < arr.length; i++ ){
 			let charCode = (arr[i]).charCodeAt(0);
+			console.log(charCode);
 			arrey.push( charCode );
 			var trans = translate( dictionary, charCode);
 			toreturn += trans == undefined ? arr[i] : trans ;
@@ -99,7 +173,7 @@
 	function update () {
 		let strObj = getString(); // toconvert, converted elements
 		let strArr = stringToArray(strObj.toconvert);
-		let convertedValue = convert(strArr, dictionary);
+		let convertedValue = convert(strArr, dictionary); // change Dictionary Object.
 		changeHTML(strObj.converted, convertedValue);
 	}
 	
