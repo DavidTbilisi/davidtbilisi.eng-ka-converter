@@ -97,7 +97,7 @@ function convert(arr, dictionary) {
         let char = arr[i];
         let charCode = char.charCodeAt(0);
 
-        console.log(char, charCode);
+        // console.log(char, charCode);
 
         arrey.push(charCode);
 
